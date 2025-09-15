@@ -1,6 +1,8 @@
 use std::{env, io::Result};
 
-mod image_util;
+pub mod utils;
+
+use utils::image_util;
 
 fn main() -> Result<()> {
     let mut a: Vec<u8> = Vec::new();

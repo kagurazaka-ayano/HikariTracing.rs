@@ -6,4 +6,5 @@ edition = "2024"
 [dependencies]
 cubecl = { version = "0.6.0", features = ["cuda", "wgpu"] }
 image = "0.25.8"
+nalgebra = "0.34.0"
 

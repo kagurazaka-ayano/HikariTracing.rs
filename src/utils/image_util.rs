@@ -3,8 +3,7 @@ use std::u8;
 use image::ImageError;
 use image::{ExtendedColorType, ImageReader, save_buffer};
 
-
-mod misc_util;
+use crate::utils::misc_util::is_rectangular;
 
 #[derive(Clone)]
 /// A rgb8 image
@@ -41,7 +40,6 @@ impl Image {
         }
     }
 
-
     /// load a image from a file
     ///
     /// * `path`: img path
@@ -57,6 +55,9 @@ impl Image {
     ///
     /// * `data`: nested data array
     pub fn new(data: &Vec<Vec<u8>>) -> Self {
+        if !is_rectangular(data) {
+            panic!("input image data must be rectangular!")
+        }
         Self::from_flatten(
             &data.iter().flatten().copied().collect(),
             &(data.len(), data[0].len() / 3),

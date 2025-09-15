@@ -1,11 +1,7 @@
 {}:
 with import <nixpkgs> {};
-  stdenv.mkDerivation rec {
-    pname = "hikaritracing-rs";
-    name = "hikaritracing-rs";
-    nativeBuildInputs = [
-    ];
-    buildInputs = [
+  mkShell rec {
+    packages = [
       rustup
       rustc
       cargo
