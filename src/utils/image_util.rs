@@ -3,7 +3,7 @@ use std::u8;
 use image::ImageError;
 use image::{ExtendedColorType, ImageReader, save_buffer};
 
-use crate::utils::misc_util::is_rectangular;
+use crate::utils::math_util::is_rectangular;
 
 #[derive(Clone)]
 /// A rgb8 image

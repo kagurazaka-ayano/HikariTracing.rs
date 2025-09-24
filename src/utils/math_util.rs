@@ -1,12 +1,7 @@
-use nalgebra::Vector3;
-
-type Vec3 = Vector3<f32>;
-type Point3 = Vec3;
-
 #[derive(Clone, Copy, Debug)]
 pub struct Interval {
-    min: f32,
-    max: f32,
+    pub min: f32,
+    pub max: f32,
 }
 
 impl Interval {
@@ -41,70 +36,17 @@ impl Interval {
     };
 }
 
-#[derive(Clone, Copy, Debug)]
-pub struct Ray {
-    origin: Vec3,
-    direction: Vec3,
-    time: f32,
+pub fn lerp(begin: f32, end: f32, time: f32) -> f32 {
+    begin + time * (end - begin)
 }
 
-impl Ray {
-    pub fn at(&self, time: &f32) -> Vec3 {
-        self.origin + self.direction * (*time)
-    }
-
-    pub fn new(pos: &Vec3, dir: &Vec3, tm: &f32) -> Self {
-        Self {
-            origin: *pos,
-            direction: *dir,
-            time: *tm,
+pub fn is_rectangular<T>(mat: &Vec<Vec<T>>) -> bool {
+    let mut len = mat[0].len();
+    for i in 0..mat.len() {
+        if mat[i].len() != len {
+            return false;
         }
+        len = mat[i].len();
     }
-}
-
-#[derive(Clone, Copy, Debug)]
-pub struct AABB {
-    x: Interval,
-    y: Interval,
-    z: Interval,
-}
-
-impl AABB {
-    pub fn from_pt(a: &Point3, b: &Point3) -> Self {
-        Self {
-            x: Interval { min: a.x, max: b.x },
-            y: Interval { min: a.y, max: b.y },
-            z: Interval { min: a.z, max: b.z },
-        }
-    }
-
-    pub fn from_interval(x: &Interval, y: &Interval, z: &Interval) -> Self {
-        Self {
-            x: *x,
-            y: *y,
-            z: *z,
-        }
-    }
-
-    pub fn from_merge(up: &Self, down: &Self) -> Self {
-        Self {
-            x: Interval::from_between(&up.x, &down.x),
-            y: Interval::from_between(&up.y, &down.y),
-            z: Interval::from_between(&up.z, &down.z),
-        }
-    }
-    pub fn axis(&self, axis: i32) -> Interval {
-        match (axis) {
-            0 => self.x,
-            1 => self.y,
-            2 => self.z,
-            _ => panic!("invalid axis argument, can only be between 0 and 2"),
-        }
-    }
-    pub fn hit(&self, ray: &Ray, ray_int: &Interval) -> bool {
-        for i in 0..3 {
-            let inverse_dir = ray.direction[i];
-            let t = 
-        }
-    }
+    true
 }

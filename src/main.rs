@@ -1,8 +1,12 @@
 use std::{env, io::Result};
 
+pub mod objs;
 pub mod utils;
 
 use utils::image_util;
+
+use crate::utils::graphic_utils::Noise3D;
+use crate::utils::graphic_utils::Perlin;
 
 fn main() -> Result<()> {
     let mut a: Vec<u8> = Vec::new();
@@ -12,6 +16,7 @@ fn main() -> Result<()> {
         }
     }
     let img = image_util::Image::from_flatten(&a, &(256, 256));
-    img.save(&format!("{}/out.png", env::current_dir()?.display()));
+    let _ = img.save(&format!("{}/out.png", env::current_dir()?.display()));
+
     Ok(())
 }
